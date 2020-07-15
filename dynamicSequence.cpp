@@ -21,15 +21,6 @@ bool ListEmpty(SqList L)
 	return (0 == L.length);
 }
 
-bool InsertFirstElem(SqList &L, int i, ElemType e)
-{
-	if (i != 1)
-		return ERROR;
-	L.elem[0] = e;
-	L.length++;
-	return OK;
-}
-
 bool ListInsert_Sq(SqList &L, int i, ElemType e)
 {
 	if (i < 1 || i > L.length + 1) return ERROR;
@@ -136,7 +127,7 @@ bool MergeList_Sq(SqList La, SqList Lb, SqList& Lc)
 	return OK;
 }
 
-void printL(SqList L, const std::string& title)
+void printSq(SqList L, const std::string& title)
 {
 	std::cout << title << ":" << std::endl;
 	if (ListEmpty(L))printf("empty sequence!\n");
