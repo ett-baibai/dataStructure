@@ -22,5 +22,5 @@ bool ListInsert_Sq(SqList &L, int i, ElemType e);
 bool ListDelete_Sq(SqList &L, int i, ElemType &e);
 bool Compare(ElemType e1, ElemType e2);
 int LocateElem_Sq(SqList L,ElemType e);
-void MergeList_Sq(SqList La, SqList Lb, SqList &Lc);
+bool MergeList_Sq(SqList La, SqList Lb, SqList &Lc);
 void printL(SqList L, const std::string &title);

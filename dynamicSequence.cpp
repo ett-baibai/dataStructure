@@ -116,35 +116,24 @@ int LocateElem_Sq(SqList L, ElemType e)
 	return(i <= L.length? i : 0);
 }
 
-void MergeList_Sq(SqList La, SqList Lb, SqList& Lc)
+bool MergeList_Sq(SqList La, SqList Lb, SqList& Lc)
 {
-	ElemType* pa = La.elem, * pb = Lb.elem;
+	ElemType *pa = La.elem, *pb = Lb.elem, *pc = NULL;
+	pc = Lc.elem = (ElemType*)malloc((La.listSize + Lb.listSize) * sizeof(ElemType));
+	if (NULL == pc)return ERROR;
+
+	Lc.length = Lc.listSize  = La.length + Lb.length;
 
 	while (pa <= &La.elem[La.length - 1] && pb <= &Lb.elem[Lb.length - 1])
 	{
-		if (*pa < * pb)
-		{
-			ListInsert_Sq(Lc, 1 + Lc.length, *pa);
-			pa++;
-		}
-		else
-		{
-			ListInsert_Sq(Lc, 1 + Lc.length, *pb);
-			pb++;
-		}
-		//printf("Lc.elem[%d]: %d\n", Lc.length - 1, Lc.elem[Lc.length - 1]);
+		if (*pa < * pb) *pc++ = *pa++;
+		else *pc++ = *pb++;
 	}
 
-	for (; pa <= &La.elem[La.length - 1]; pa++)
-	{
-		ListInsert_Sq(Lc, 1 + Lc.length, *pa);
-		//printf("Lc.elem[%d]: %d\n", Lc.length - 1, Lc.elem[Lc.length - 1]);
-	}
-	for (; pb <= &Lb.elem[Lb.length - 1]; pb++)
-	{
-		ListInsert_Sq(Lc, 1 + Lc.length, *pb);
-		//printf("Lc.elem[%d]: %d\n", Lc.length - 1, Lc.elem[Lc.length - 1]);
-	}
+	while ( pa <= &La.elem[La.length - 1])*pc++ = *pa++;
+	while (pb <= &Lb.elem[Lb.length - 1])*pc++ = *pb++;
+
+	return OK;
 }
 
 void printL(SqList L, const std::string& title)
