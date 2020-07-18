@@ -45,6 +45,7 @@ void DestoryList_L(LinkList L)
 
 	if(L->data)free(L->next);
 	free(L);
+	L = NULL;
 }
 
 bool ListInsert_L(LinkList& L, int i, ElemType e)

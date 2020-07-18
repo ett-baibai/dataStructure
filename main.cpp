@@ -4,6 +4,7 @@
 #include <iostream>
 #include "dynamicSequence.h"
 #include "linkList.h"
+#include "doubleLinkList.h"
 
 void  TestSequence()
 {
@@ -102,8 +103,38 @@ void TestLinkList()
 	
 }
 
+void TestDoubleLinkList()
+{
+	//test insert
+	printf("###test insert:\n");
+	DuLinkList L;
+	InitList_DuL(L);
+	int i = 1;
+	for (; i < 6; i++)
+	{
+		if (!ListInsert_DuL(L, i, i))
+			printf("loop insert error, index: %d\n", i);
+	}
+	if (!ListInsert_DuL(L, i, 100))
+		printf("single insert error\n");
+	printDuL(L, "La");
+
+	//test delete
+	ElemType deleteElem = -1;
+	printf("###test delete:\n");
+	if (!ListDelete_DuL(L, 1, deleteElem))
+		printf("single delete error\n");
+	else
+		printf("signle delete ok, delete value = %d\n", deleteElem);
+	printDuL(L, "La");
+	DestoryList_DuL(L);
+}
+
 int main()
 {
 	//TestSequence();
-	TestLinkList();
+	//TestLinkList();
+	TestDoubleLinkList();
+
+	return 0;
 }
