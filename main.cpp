@@ -5,6 +5,8 @@
 #include "dynamicSequence.h"
 #include "linkList.h"
 #include "doubleLinkList.h"
+#include "ccLinkList.h"
+#include "train.h"
 
 void  TestSequence()
 {
@@ -122,7 +124,7 @@ void TestDoubleLinkList()
 	//test delete
 	ElemType deleteElem = -1;
 	printf("###test delete:\n");
-	if (!ListDelete_DuL(L, 1, deleteElem))
+	if (!ListDelete_DuL(L, 6, deleteElem))
 		printf("single delete error\n");
 	else
 		printf("signle delete ok, delete value = %d\n", deleteElem);
@@ -130,11 +132,35 @@ void TestDoubleLinkList()
 	DestoryList_DuL(L);
 }
 
+void TestCirculaiLinkList()
+{
+	//test insert
+	printf("###test insert:\n");
+	CcLinkList L;
+	InitList_CcL(L);
+	
+	int i = 1;
+	for (; i < 4; i++)
+	{
+		if (!ListInsert_CcL(L, i, i))
+			printf("loop insert error, index: %d\n", i);
+	}
+	if (!ListInsert_CcL(L, 5, 100))
+		printf("single insert error\n");
+	printCcL(L, "La");
+	
+	//test delete
+	DestoryList_CcL(L);
+}
+
 int main()
 {
 	//TestSequence();
 	//TestLinkList();
-	TestDoubleLinkList();
+	//TestDoubleLinkList();
+	//TestCirculaiLinkList();
+	//Train_2_29();
+	Train_2_30();
 
 	return 0;
 }

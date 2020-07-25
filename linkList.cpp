@@ -4,20 +4,16 @@
 
 bool InitList_L(LinkList& L, bool withHead)
 {
-	L = (LNode*)malloc(sizeof(LNode));
-	if (NULL == L)return ERROR;
-
 	if (withHead)
 	{
-		L->data = 1;
-		L->next = (LNode*)malloc(sizeof(LNode)); //attach tail node
-		if (NULL == L->next)return ERROR;
-		L->next->next = NULL;
+		L = (LNode*)malloc(sizeof(LNode));
+		if (NULL == L)return ERROR;
+		L->next = NULL;
 	}
 	else
 	{
-		L->data = 0;
-		L->next = NULL;
+		printf("have yet to achieve");
+		return ERROR;
 	}
 
 	return OK;
@@ -25,7 +21,7 @@ bool InitList_L(LinkList& L, bool withHead)
 
 bool ListEmpty_L(LinkList L)
 {
-	return (L->data ? NULL == L->next->next : NULL == L->next);
+	return (/*L->data ? NULL == L->next->next : */NULL == L->next);
 }
 
 void DestoryList_L(LinkList L)
@@ -34,7 +30,7 @@ void DestoryList_L(LinkList L)
 
 	LNode *tempNode = NULL, *freeNode = NULL;
 
-	tempNode = L->data ? L->next->next : L->next;
+	tempNode =/* L->data ? L->next->next :*/ L->next;
 
 	while (tempNode)
 	{
@@ -43,7 +39,7 @@ void DestoryList_L(LinkList L)
 		free(freeNode);
 	}
 
-	if(L->data)free(L->next);
+	//if(L->data)free(L->next);
 	free(L);
 	L = NULL;
 }
@@ -66,7 +62,7 @@ bool ListInsert_L(LinkList& L, int i, ElemType e)
 
 	int j = 1;
 	LNode* tempNode = NULL, * insertNode = NULL;
-	tempNode = L->data ? L->next : L;
+	tempNode = /*L->data ? L->next : */L;
 	
 	while (tempNode && j < i)
 	{
@@ -89,7 +85,7 @@ bool ListDelete_L(LinkList& L, int i, ElemType& e)
 {
 	int j = 1;
 	LNode* tempNode = NULL, *deleteNode = NULL;
-	tempNode = L->data ? L->next : L;
+	tempNode =/* L->data ? L->next : */L;
 
 	while (tempNode && j < i)
 	{
@@ -110,7 +106,7 @@ bool ListDelete_L(LinkList& L, int i, ElemType& e)
 }
 
 void MergeList_L(LinkList La, LinkList Lb, LinkList& Lc)
-{
+{/*
 	LinkList pa = La->next->next, pb = Lb->next->next, pc = Lc->next;
 
 	while (pa && pb)
@@ -132,10 +128,12 @@ void MergeList_L(LinkList La, LinkList Lb, LinkList& Lc)
 
 	La->next->next = NULL;
 	Lb->next->next = NULL;
+	*/
+	printf("fixing");
 }
 
 void MergeList_L(LinkList& La, LinkList Lb)
-{
+{/*
 	LinkList pa = La->next, tempNodeLa = La->next->next, pb = Lb->next->next, tempNodeLb = NULL;
 
 	while (tempNodeLa && pb)
@@ -157,6 +155,8 @@ void MergeList_L(LinkList& La, LinkList Lb)
 	if(pb)pa->next = pb;
 
 	Lb->next->next = NULL;
+	*/
+	printf("fixing");
 }
 
 void printL(LinkList L, std::string title)
@@ -165,7 +165,7 @@ void printL(LinkList L, std::string title)
 	if (ListEmpty_L(L))printf("empty list!\n");
 
 	LNode* showNode = NULL;
-	showNode = L->data ? L->next->next : L->next;
+	showNode = /*L->data ? L->next->next :*/ L->next;
 
 	int i = 1;
 	while (showNode)

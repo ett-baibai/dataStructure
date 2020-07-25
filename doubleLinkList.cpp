@@ -36,6 +36,7 @@ void DestoryList_DuL(DuLinkList L)
 	free(L);
 	L = NULL;
 }
+
 bool LocateNode_DuL(DuLinkList L, int i, DuLNode*& p)
 {
 	int j = 1;
@@ -76,8 +77,7 @@ bool ListDelete_DuL(DuLinkList& L, int i, ElemType& e)
 	if (deleteNode)//the node to be deleted is not NULL
 	{
 		p->next = deleteNode->next;
-		if (deleteNode->next)//q is not the tail node
-			deleteNode->next->prior = p;
+		if (deleteNode->next)deleteNode->next->prior = p;//q is not the tail node			
 
 		e = deleteNode->data;
 		free(deleteNode);
