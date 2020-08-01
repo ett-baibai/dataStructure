@@ -159,8 +159,8 @@ int main()
 	//TestLinkList();
 	//TestDoubleLinkList();
 	//TestCirculaiLinkList();
-	//Train_2_29();
-	Train_2_30();
+	Train_2_29();
+	//Train_2_30();
 
 	return 0;
 }

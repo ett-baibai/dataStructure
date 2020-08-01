@@ -2,15 +2,15 @@
 #include "dynamicSequence.h"
 #include "linkList.h"
 
-static void Insert_2_29(SqList &La, SqList &Lb, SqList &Lc)
+static void InsertSq_2_29(SqList &La, SqList &Lb, SqList &Lc)
 {
 	InitList_Sq(La);
 	InitList_Sq(Lb);
 	InitList_Sq(Lc);
 
-	ElemType arrA[] = {1, 1, 1, 2, 3 ,4};
-	ElemType arrB[] = {0, 1, 1, 2, 4 ,4 };
-	ElemType arrC[] = {1, 2, 2, 3, 3, 4};
+	ElemType arrA[] = { 1, 2, 3 };
+	ElemType arrB[] = { 4, 5, 6 };
+	ElemType arrC[] = { 7, 8, 8 };
 	for (int i = 0; i < sizeof(arrA) / sizeof(ElemType); i++)
 	{
 		ListInsert_Sq(La, La.length + 1, arrA[i]);
@@ -37,11 +37,8 @@ static bool DiscardSameElemSq_2_29(SqList &S, const std::string title)
 	{
 		if (e == S.elem[i])
 		{
-			if (S.length > 2)
-			{
-				for (int j = i; j < S.length - 1; j++)
-					S.elem[j] = S.elem[j + 1];	
-			}
+			for (int j = i; j < S.length - 1; j++)
+				S.elem[j] = S.elem[j + 1];	
 			S.length--;
 		}
 		else
@@ -57,68 +54,57 @@ static bool DiscardSameElemSq_2_29(SqList &S, const std::string title)
 static bool GetSameSq_2_29(SqList &B, SqList &C)
 {
 	int i = 0, j = 0, k = 0;
-	while (i < B.length)
+	while (i < B.length && j < C.length)
 	{
-		while (j < C.length)
+		if (B.elem[i] == C.elem[j])
 		{
-			if (B.elem[i] == C.elem[j])
-			{
-				i++;
-				j++;
-				break;
-			}
-			else if (B.elem[i] < C.elem[j])//In sequence B, there exist no element which is same with C
-			{
-				for (k = i; k < B.length - 1; k++)
-				{
-					B.elem[k] = B.elem[k + 1];
-				}
-				B.length--;
-			}
-			else
-				j++;
+			i++;
+			j++;
 		}
-		if (j == C.length)
+		else if (B.elem[i] < C.elem[j])
 		{
-			B.length = i;
-			break;
+			for (k = i; k < B.length - 1; k++)
+			{
+				B.elem[k] = B.elem[k + 1];
+			}
+			B.length--;
+		}
+		else
+		{
+			j++;
 		}
 	}
-	printSq(B, "Lb");
+	if (j == C.length && i < B.length)
+	{
+		B.length = i + 1;
+	}
+	printSq(B, "same");
 	return OK;
 }
 
 static void deleteSameSq_2_29(SqList& A, SqList B)
 {
 	int i = 0, j = 0, k = 0;
-	while (i < A.length)
+
+	while (i < A.length && j < B.length)
 	{
-		while (j < B.length)
+		if (A.elem[i] == B.elem[j])
 		{
-			if (A.elem[i] == B.elem[j])
+			for (k = i; k < A.length - 1; k++)
 			{
-				for (k = i; k < A.length - 1; k++)
-				{
-					A.elem[k] = A.elem[k + 1];
-				}
-				A.length--;
-				if (A.length == 1)
-				{
-					if (A.elem[0] == A.elem[j])
-						A.length = 0;
-					break;
-				}
+				A.elem[k] = A.elem[k + 1];
 			}
-			else if (A.elem[i] < B.elem[j])//In sequence	C, there exist no element which is same with A
-			{
-				i++;
-				break;
-			}
-			else
-				j++;
+			A.length--;
+			j++;
 		}
-		if (j == B.length || A.length <= 1)
-			break;
+		else if (A.elem[i] < B.elem[j])
+		{
+			i++;
+		}
+		else
+		{
+			j++;
+		};
 	}
 	printSq(A, "La");
 }
@@ -127,14 +113,14 @@ void Train_2_29()
 {
 	SqList La, Lb, Lc;
 	printf("####insert:\n");
-	Insert_2_29(La, Lb, Lc);
-	printf("####discard same elem in Lb and Lc:\n");
+	InsertSq_2_29(La, Lb, Lc);
+	printf("####discard same elem:\n");
 	DiscardSameElemSq_2_29(La, "La");
 	DiscardSameElemSq_2_29(Lb, "Lb");
 	DiscardSameElemSq_2_29(Lc, "Lc");
-	printf("####get same between Lb and Lc:\n");
+	printf("####get same between:\n");
 	GetSameSq_2_29(Lb, Lc);
-	printf("####delete elem in La who is same with Lb :\n");
+	printf("####delete elem:\n");
 	deleteSameSq_2_29(La, Lb);
 
 	DestroyList(La);
@@ -144,11 +130,7 @@ void Train_2_29()
 
 
 
-
-
-
-
-static void Insert_2_30(LinkList &A, LinkList& B, LinkList&C)
+static void InsertL_2_30(LinkList &A, LinkList& B, LinkList&C)
 {
 	InitList_L(A);
 	InitList_L(B);
@@ -256,9 +238,10 @@ static bool deleteSameL_2_30(LinkList &A, LinkList &B)
 
 void Train_2_30()
 {
+	// A B C三个链表的值域按非递减顺序排列（可能有相同元素），删除A中BC都有的元素
 	LinkList La, Lb, Lc;
 	printf("####insert:\n");
-	Insert_2_30(La, Lb, Lc);
+	InsertL_2_30(La, Lb, Lc);
 	printL(La, "La");
 	printL(Lb, "Lb");
 	printL(Lc, "Lc");
