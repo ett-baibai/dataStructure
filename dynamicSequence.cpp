@@ -12,8 +12,11 @@ bool InitList_Sq(SqList& L)
 
 void DestroyList(SqList &L)
 {
-	free(L.elem);
-	L.elem = NULL;
+	if (L.elem) 
+	{
+		free(L.elem);
+		L.elem = NULL;
+	}
 }
 
 bool ListEmpty(SqList L)

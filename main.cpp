@@ -7,6 +7,8 @@
 #include "doubleLinkList.h"
 #include "ccLinkList.h"
 #include "train.h"
+#include "stackSequence.h"
+#include "stackLinkList.h"
 
 void  TestSequence()
 {
@@ -92,7 +94,11 @@ void TestLinkList()
 	//test no head Node
 	printf("###test withoutHead:\n");
 	LinkList L;
-	InitList_L(L, 0);
+	if (!InitList_L(L, 0))
+	{
+		printf("初始化失败\n");
+		exit(0);
+	}
 	int k = 1;
 	for (; k <= 5; k++)
 	{
@@ -153,14 +159,58 @@ void TestCirculaiLinkList()
 	DestoryList_CcL(L);
 }
 
+void TestStackSq()
+{
+	SqStack S;
+	InitStack_Sq(S);
+	printf("####Push_Sq:\n");
+	for (int i = 0; i < 15; i++)
+		if (!Push_Sq(S, i+1))printf("Push_Sq error!\n");		
+	printStackSq(S, "S");
+
+	printf("####Pop_Sq:\n");
+	SElemType e = 0;
+	for (int i = 0; i < 8; i++)
+	{
+		if (!Pop_Sq(S, e))printf("Push_Sq error!\n");
+		else printf("Pop_Sq succ, value: %d\n", e);
+	}
+	printf("\n\n");
+	printStackSq(S, "S");
+
+
+	DestroyStack_Sq(S);
+}
+
+void TestStackLinkList()
+{
+	StackLinkList StackL;
+	InitStack_L(StackL);
+	printf("####Push_L:\n");
+	for (int i = 0; i < 15; i++)
+		if (!Push_L(StackL, i + 1))printf("Push_L error!\n");
+	printStackL(StackL, "StackL");
+
+	printf("####Pop_L:\n");
+	SElemType e = 0;
+	for (int i = 0; i < 8; i++)
+	{
+		if (!Pop_L(StackL, e))printf("Push_L error!\n");
+		else printf("Pop_L succ, value: %d\n", e);
+	}
+	printf("\n\n");
+	printStackL(StackL, "StackL");
+	DestroyStack_L(StackL);
+}
 int main()
 {
 	//TestSequence();
 	//TestLinkList();
 	//TestDoubleLinkList();
 	//TestCirculaiLinkList();
-	Train_2_29();
+	//Train_2_29();
 	//Train_2_30();
-
+	//TestStackSq();
+	TestStackLinkList();
 	return 0;
 }

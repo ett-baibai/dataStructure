@@ -104,7 +104,7 @@ void printDuL(DuLinkList L, std::string title)
 	int i = 1;
 	while (showNode)
 	{
-		printf("LNode%d : self addr: %p, prior addre: %p, next addre: %p, value:%d\n", 
+		printf("StackNode%d : self addr: %p, prior addre: %p, next addre: %p, value:%d\n", 
 			i, showNode, showNode->prior, showNode->next,showNode->data);
 
 		showNode = showNode->next;
