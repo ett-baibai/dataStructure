@@ -9,6 +9,8 @@
 #include "train.h"
 #include "stackSequence.h"
 #include "stackLinkList.h"
+#include "ccQueueSequence.h"
+#include "queueLinkList.h"
 
 void  TestSequence()
 {
@@ -178,7 +180,6 @@ void TestStackSq()
 	printf("\n\n");
 	printStackSq(S, "S");
 
-
 	DestroyStack_Sq(S);
 }
 
@@ -202,6 +203,51 @@ void TestStackLinkList()
 	printStackL(StackL, "StackL");
 	DestroyStack_L(StackL);
 }
+
+void TsetCcQueueSq()
+{
+	SqQueue S;
+	InitQueue_Sq(S);
+	printf("####Enqueue_Sq:\n");
+	for (int i = 0; i < 15; i++)
+		if (!EnQueue_Sq(S, i + 1))printf("EnQueue_Sq error!\n");
+	printQueueSq(S, "S");
+
+	printf("####Dequeue_Sq:\n");
+	QElemType e = 0;
+	for (int i = 0; i < 8; i++)
+	{
+		if (!DeQueue_Sq(S, e))printf("DeQueue_Sq error!\n");
+		else printf("DeQueue_Sq succ, value: %d\n", e);
+	}
+	printf("\n\n");
+	printQueueSq(S, "S");
+
+	DestroyQueue_Sq(S);
+}
+
+void TestQueueLinkList()
+{
+	LinkQueue L;
+	InitQueue_L(L);
+	printf("####Enqueue_L:\n");
+	for (int i = 0; i < 15; i++)
+		if (!EnQueue_L(L, i + 1))printf("EnQueue_L error!\n");
+	printQueueL(L, "L");
+
+	printf("####Dequeue_L:\n");
+	QElemType e = 0;
+	for (int i = 0; i < 18; i++)
+	{
+		if (!DeQueue_L(L, e))printf("DeQueue_L error!\n");
+		else printf("DeQueue_L succ, value: %d\n", e);
+	}
+	printf("\n\n");
+	printQueueL(L, "L");
+
+	DestroyQueue_L(L);
+}
+
 int main()
 {
 	//TestSequence();
@@ -211,6 +257,8 @@ int main()
 	//Train_2_29();
 	//Train_2_30();
 	//TestStackSq();
-	TestStackLinkList();
+	//TestStackLinkList();
+	TsetCcQueueSq();
+	//TestQueueLinkList();
 	return 0;
 }

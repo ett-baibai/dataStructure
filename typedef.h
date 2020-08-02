@@ -7,6 +7,4 @@
 #define INFEASIBLE -1
 #define OVER_FLOW -2
 
-typedef int ElemType,SElemType;
-
-
+typedef int ElemType, SElemType, QElemType;
