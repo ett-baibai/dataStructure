@@ -27,7 +27,7 @@ bool StackEmpty_L(StackLinkList L)
 	return(NULL == L->top);
 }
 
-bool Push_L(StackLinkList& L, SElemType e)
+bool Push_L(StackLinkList& L, ElemType e)
 {
 	StackNode* p = (StackNode*)malloc(sizeof(StackNode));
 	if (!p)return ERROR;
@@ -38,7 +38,7 @@ bool Push_L(StackLinkList& L, SElemType e)
 	return OK;
 }
 
-bool GetPop_L(StackLinkList L, SElemType& e)
+bool GetPop_L(StackLinkList L, ElemType& e)
 {
 	if (StackEmpty_L(L))return ERROR;
 	else
@@ -48,7 +48,7 @@ bool GetPop_L(StackLinkList L, SElemType& e)
 	}
 }
 
-bool Pop_L(StackLinkList& L, SElemType& e)
+bool Pop_L(StackLinkList& L, ElemType& e)
 {
 	if (StackEmpty_L(L))return ERROR;
 	else

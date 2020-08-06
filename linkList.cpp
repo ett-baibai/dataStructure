@@ -12,7 +12,7 @@ bool InitList_L(LinkList& L, bool withHead)
 	}
 	else
 	{
-		printf("have yet to achieve");
+		printf("have yet to achieve\n");
 		return ERROR;
 	}
 
@@ -24,7 +24,7 @@ bool ListEmpty_L(LinkList L)
 	return (/*L->data ? NULL == L->next->next : */NULL == L->next);
 }
 
-void DestoryList_L(LinkList L)
+void DestoryList_L(LinkList& L)
 {
 	if (NULL == L)return; //do not free again if freed
 
@@ -42,6 +42,18 @@ void DestoryList_L(LinkList L)
 	//if(L->data)free(L->next);
 	free(L);
 	L = NULL;
+}
+
+int GetLinkListLength(LinkList L)
+{
+	LNode* p = L;
+	int length = 0;
+	while (p->next)
+	{
+		p = p->next;
+		length++;
+	}
+	return length;
 }
 
 bool ListInsert_L(LinkList& L, int i, ElemType e)
@@ -161,8 +173,13 @@ void MergeList_L(LinkList& La, LinkList Lb)
 
 void printL(LinkList L, std::string title)
 {
+	if (!L)return;
 	std::cout <<"list "<< title << ":" << std::endl;
-	if (ListEmpty_L(L))printf("empty list!\n");
+	if (ListEmpty_L(L))
+	{
+		printf("empty list!\n");
+		return;
+	}
 
 	LNode* showNode = NULL;
 	showNode = /*L->data ? L->next->next :*/ L->next;

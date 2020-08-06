@@ -10,7 +10,8 @@ typedef struct LNode
 
 bool InitList_L(LinkList &L, bool withHead = 1);
 bool ListEmpty_L(LinkList L);
-void DestoryList_L(LinkList L);
+void DestoryList_L(LinkList &L);
+int GetLinkListLength(LinkList L);
 bool ListInsert_L(LinkList& L, int i, ElemType e);
 bool ListDelete_L(LinkList& L, int i, ElemType &e);
 void MergeList_L(LinkList La, LinkList Lb, LinkList& Lc);

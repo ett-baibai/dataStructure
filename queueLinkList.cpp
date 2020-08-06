@@ -60,7 +60,7 @@ bool DeQueue_L(LinkQueue& L, QElemType& e)
 	QNode* p = L.front->next;
 	e = p->data;
 	L.front->next = p->next;
-	if (L.rear == p)L.rear = L.front;//the only one element dequeue
+	if (L.rear == p)L.rear = L.front;//the last one element dequeue
 	free(p);
 	return OK;
 }

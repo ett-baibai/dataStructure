@@ -188,13 +188,13 @@ void TestStackLinkList()
 	StackLinkList StackL;
 	InitStack_L(StackL);
 	printf("####Push_L:\n");
-	for (int i = 0; i < 15; i++)
+	for (SElemType i = 0; i < 15; i++)
 		if (!Push_L(StackL, i + 1))printf("Push_L error!\n");
 	printStackL(StackL, "StackL");
 
 	printf("####Pop_L:\n");
-	SElemType e = 0;
-	for (int i = 0; i < 8; i++)
+	ElemType e = 0;
+	for (ElemType i = 0; i < 8; i++)
 	{
 		if (!Pop_L(StackL, e))printf("Push_L error!\n");
 		else printf("Pop_L succ, value: %d\n", e);
@@ -248,17 +248,36 @@ void TestQueueLinkList()
 	DestroyQueue_L(L);
 }
 
+void Ftrain()
+{
+	//Train_2_10();
+	//Train_2_11();
+	//Train_2_12();
+	//Train_2_13();
+	//Train_2_15();
+	//Train_2_19();
+	//Train_2_20();
+	//Train_2_21();
+	//Train_2_22();
+	//Train_2_23();
+	Train_2_24();
+	//Train_2_29();
+	//Train_2_30();
+}
+
 int main()
 {
+	Ftrain();
 	//TestSequence();
 	//TestLinkList();
 	//TestDoubleLinkList();
 	//TestCirculaiLinkList();
-	//Train_2_29();
-	//Train_2_30();
+	
 	//TestStackSq();
 	//TestStackLinkList();
-	TsetCcQueueSq();
+	//TsetCcQueueSq();
 	//TestQueueLinkList();
+	//Practice_3_2_2_CheckOfBrackets();
+	//Practice_3_2_2_InfixExpressionEvaluation();
 	return 0;
 }

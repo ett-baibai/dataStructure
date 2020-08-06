@@ -29,6 +29,8 @@ int GetStackLength_Sq(SqStack S)
 
 bool GetPop_Sq(SqStack S, SElemType& e)
 {
+	if (StackEmpty_Sq(S))return ERROR;
+	e = *(S.top - 1);//Ö»¶Á²»µ¯³ö
 	return OK;
 }
 
@@ -58,7 +60,7 @@ bool Pop_Sq(SqStack& S, SElemType& e)
 
 void printStackSq(SqStack S, const std::string& title)
 {
-	std::cout <<"Ë³ÐòÕ»"<< title << ":" << std::endl;
+	std::cout <<"Ë³ÐòÕ» "<< title << ":" << std::endl;
 	if (StackEmpty_Sq(S))
 	{
 		printf("¿ÕÕ»\n");
@@ -67,7 +69,7 @@ void printStackSq(SqStack S, const std::string& title)
 	printf("Õ»µ× ---> Õ»¶¥\n");
 	int length = GetStackLength_Sq(S);
 	for (int i = 0; i < length; i++)
-		printf("S.base[%2d] :addre: %p, value:%d\n", i, &S.base[i], S.base[i]);
+		printf("S.base[%2d] :addre: %p, value:%u\n", i, &S.base[i], S.base[i]);
 	printf("length:%d\n", length);
 	printf("\n\n");
 }

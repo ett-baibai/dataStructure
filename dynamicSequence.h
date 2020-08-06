@@ -8,8 +8,8 @@
 typedef struct 
 {
 	ElemType *elem; //base address
-	int length;			//current length
-	int listSize;			//current storage allocated in "sizeof(ElemType)"
+	int length;		//current length
+	int listSize;	//current storage allocated in "sizeof(ElemType)"
 }SqList;
 
 typedef bool (*compare)(ElemType , ElemType );
