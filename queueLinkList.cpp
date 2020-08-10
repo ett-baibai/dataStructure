@@ -34,7 +34,14 @@ bool QueueEmpty_L(LinkQueue L)
 
 int QueueLength_L(LinkQueue L)
 {
-	return OK;
+	QNode* p = L.front;
+	int length = 0;
+	while (p != L.rear)
+	{
+		length++;
+		p = p->next;
+	}
+	return length;
 }
 
 bool GetQueueHead_L(LinkQueue L, QElemType& e)
@@ -78,7 +85,7 @@ void printQueueL(LinkQueue L, const std::string& title)
 	int i = 0;
 	while (showNode)
 	{
-		printf("StackNode%2d :addr: %p, value:%d\n", i, showNode, showNode->data);
+		printf("StackNode%2d :addr: %p, value:%c(%d)\n", i, showNode, showNode->data, showNode->data);
 		showNode = showNode->next;
 		i++;
 	}

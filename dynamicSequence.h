@@ -14,12 +14,12 @@ typedef struct
 
 typedef bool (*compare)(ElemType , ElemType );
 
-bool InitList_Sq(SqList &L);
-void DestroyList(SqList &L);
-bool ListEmpty(SqList L);
-bool ListInsert_Sq(SqList &L, int i, ElemType e);
-bool ListDelete_Sq(SqList &L, int i, ElemType &e);
+bool InitList_Sq(SqList &Sq);
+void DestroyList(SqList &Sq);
+bool ListEmpty(SqList Sq);
+bool ListInsert_Sq(SqList &Sq, int i, ElemType e);
+bool ListDelete_Sq(SqList &Sq, int i, ElemType &e);
 bool Compare(ElemType e1, ElemType e2);
-int LocateElem_Sq(SqList L,ElemType e);
-bool MergeList_Sq(SqList La, SqList Lb, SqList &Lc);
-void printSq(SqList L, const std::string &title);
+int LocateElem_Sq(SqList Sq,ElemType e);
+bool MergeList_Sq(SqList SqA, SqList SqB, SqList &SqC);
+void printSq(SqList Sq, const std::string &title);

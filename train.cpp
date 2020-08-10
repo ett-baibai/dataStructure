@@ -5,6 +5,8 @@
 #include "linkList.h"
 #include "stackSequence.h"
 #include "stackLinkList.h"
+#include "queueLinkList.h"
+
 using namespace std;
 
 static bool DeleteK(SqList &a, int i, int k)
@@ -799,6 +801,234 @@ void Train_2_30()
 
 
 
+static void ditui_3_9(int n)
+{
+	/*
+	int i = n;
+	while (i > 1)
+		printf("%d ", i--);
+	printf("\n");
+	*/
+
+	if (n > 1)
+	{
+		printf("%d ", n);
+		ditui_3_9(n-1);
+	}
+}
+
+void Train_3_9()
+{
+	ditui_3_9(5);
+}
+
+
+
+
+static void test_3_10(int& sum)
+{
+	/*
+	int x;
+	scanf_s("%d", &x);
+	if (x == 0)sum = 0;
+	else
+	{
+		test_3_10(sum);
+		sum += x;
+	}
+	printf("%d\n", sum);
+	*/
+	int x = -1;
+	while (1)
+	{
+		scanf_s("%d", &x);
+		if (x == 0)break;
+		else
+		{
+			printf("%d\n", sum);
+			sum += x;
+		}
+	}
+	printf("%d\n", sum);
+}
+
+void Train_3_10()
+{
+	int sum = 0;
+	test_3_10(sum);
+}
+
+
+
+
+
+static void fun_3_21(LinkQueue &Q)
+{
+	SqStack S; SElemType x, y;
+	InitStack_Sq(S);
+	int length = QueueLength_L(Q);
+
+	for (int i = 0; i < length; i++)
+	{
+		DeQueue_L(Q, x);
+		if (x > 'a' && x < 'z')EnQueue_L(Q,x);
+		else
+		{
+			if (!GetPop_Sq(S, y))
+			{
+				Push_Sq(S,x);
+				continue;
+			}
+			if (y == '+' || y == '-')
+			{
+				if (x == '+' || x == '-')
+				{
+					Pop_Sq(S, y);
+					EnQueue_L(Q, y);
+					Push_Sq(S, x);
+				}
+				else Push_Sq(S, x);
+			}
+			else
+			{
+				Pop_Sq(S, y);
+				EnQueue_L(Q, y);
+				Push_Sq(S, x);
+			}
+		}
+	}
+
+	while (!StackEmpty_Sq(S))
+	{
+		Pop_Sq(S, y);
+		EnQueue_L(Q, y);
+	}
+	DestroyStack_Sq(S);
+}
+
+void Train_3_21()
+{
+	LinkQueue L;
+	InitQueue_L(L);
+	const QElemType exp[] = { 'a', '*', 'b', '-', 'c', '+', 'd', '/', 'e'};
+	for (int i = 0; i < sizeof(exp) / sizeof(QElemType); i++)
+		if (!EnQueue_L(L, exp[i]))printf("EnQueue_L error!\n");
+	printQueueL(L, "L");
+
+	fun_3_21(L);
+	printQueueL(L, "L");
+	DestroyQueue_L(L);	
+}
+
+
+
+
+
+static int g_3_24(int& m, int& n)
+{
+	static int i = 1;
+	int s = 0;
+	if (m > 0)
+	{
+		m -= 1;
+		n *= 2;
+		printf("i = %d,m = %d, n = %d\n", i, m, n);
+		i++;
+		s = g_3_24(m, n) + n;
+	}
+	i--;
+	printf("i = %d,m = %d, n = %d, return s = %d\n", i, m, n, s);
+	return s;
+}
+
+void Train_3_24()
+{
+	int m = 5, n = 2;
+	g_3_24(m, n);
+}
+
+
+
+
+
+static int Fn_3_25_1(int &n)
+{
+	int s = 0, p = 0;
+	if (n == 0)s = n + 1;
+	else
+	{
+		p = n / 2;
+		s = n * Fn_3_25_1(p);
+	}
+	printf("s = %d\n", s);
+
+	return s;
+}
+
+static void Fn_3_25_2(int n)
+{
+	int s = n;
+	while (n != 0 && n/2 !=0)
+	{
+		s = s * (n / 2);
+		n = n / 2;
+	}
+	printf("s = %d\n", s);
+}
+
+void Train_3_25()
+{
+	int n = 5;
+	int m = n;
+	Fn_3_25_1(n);
+	printf("\n\n");
+	Fn_3_25_2(m);
+}
+
+
+
+
+
+static bool Compare_3_31(LinkQueue Q)
+{
+	SqStack S; int queueLength = 0; QElemType e = 0, x = 0;
+	InitStack_Sq(S);
+	queueLength = QueueLength_L(Q) - 1;
+
+	for (int i = 0; i < queueLength; i++)
+	{
+		DeQueue_L(Q, e);
+		if (i < queueLength / 2)Push_Sq(S, e);
+		else if (queueLength % 2 != 0 && i == queueLength / 2);
+		else
+		{
+			Pop_Sq(S, x);
+			if (x != e)return ERROR;
+		}
+	}
+	DestroyStack_Sq(S);
+	return OK;
+}
+
+void Train_3_31()
+{
+	const SElemType expression[] ={'b','c','b','a','#'};
+	LinkQueue L;
+	InitQueue_L(L);
+	for (int i = 0; i < sizeof(expression) / sizeof(SElemType); i++)
+		if (!EnQueue_L(L, expression[i]))printf("EnQueue_L error!\n");
+	printQueueL(L, "L");
+
+	if (Compare_3_31(L))
+		printf("yes\n");
+	else
+		printf("no\n");
+}
+
+
+
+
+
 void Practice_3_2_2_CheckOfBrackets()
 {
 	SElemType e = 0, bracket[] = {'{', '}','[', ']'};
@@ -1143,4 +1373,121 @@ void Practice_3_2_2_InfixExpressionEvaluation()
 	DestroyStack_L(Operand);
 	DestroyStack_Sq(Operator);
 	free(expression);
+}
+
+
+
+
+
+static int MatchPoorly_1(SqList S, SqList T)
+{
+	int i = 0, j = 0, k = 0;
+	while (i < S.length && j < T.length)
+	{
+		if (S.elem[i] == T.elem[j])
+		{
+			i++;
+			j++;
+		}
+		else
+		{
+			k++;
+			j = 0;
+			i = k;
+		}
+	}
+	if (j >= T.length)return k+1;
+	else return 0;
+}
+
+static int MatchPoorly_2(SqList S, SqList T)
+{
+	int i = 0, j = 0;
+	while (i < S.length && j < T.length)
+	{
+		if (S.elem[i] == T.elem[j])
+		{
+			i++;
+			j++;
+		}
+		else
+		{
+			i = i - j + 1;
+			j = 0;
+			
+		}
+	}
+	if (j >= T.length)return i + 1 - T.length;
+	else return 0;
+}
+
+static void GetNext(int *next, int len)
+{
+	next[0] = -1;
+	next[1] = 0;
+	next[2] = 0;
+	next[3] = 0;
+	next[len-1] = 0;
+}
+
+static int Match_KMP(SqList S, SqList T)
+{
+	int* next = (int*)malloc(T.length * sizeof(int));
+	if (!next)return 0;
+	GetNext(next, T.length);
+
+	int i = 0, j = 0;
+	while (i < S.length && j < T.length)
+	{
+		if (j == -1)
+		{
+			i++;
+			j++;
+			continue;
+		}
+		if (S.elem[i] == T.elem[j])
+		{
+			i++;
+			j++;
+		}
+		else
+		{
+			j = next[j];
+		}
+	}
+	free(next);
+	if (j >= T.length)return i + 1 - T.length;
+	else return 0;
+}
+
+void Practice_4_3_MatchPatternString()
+{
+	const char cS[] = { 'd','a','t','u','c','t','u','r', 'a',' ','s','t','r', 'u','c','t','u','r','e' };
+	const char cT[] = { 'c','t','u','r','e' };
+	SqList S, T;
+	InitList_Sq(S);
+	InitList_Sq(T);
+	for (int i = 0; i < sizeof(cS) / sizeof(ElemType); i++)
+	{
+		if (!ListInsert_Sq(S, i + 1, cS[i]))
+		{
+			printf("入队失败\n");
+			break;
+		}
+	}
+	for (int j = 0; j < sizeof(cT) / sizeof(ElemType); j++)
+	{
+		if (!ListInsert_Sq(T, j + 1, cT[j]))
+		{
+			printf("入队失败\n");
+			break;
+		}
+	}
+	printSq(S, "S");
+	printSq(T, "T");
+	printf("MatchPoorly_1: %d\n", MatchPoorly_1(S, T));
+	printf("MatchPoorly_2: %d\n", MatchPoorly_2(S, T));
+	printf("Match_KMP:     %d\n", Match_KMP(S, T));
+	DestroyList(S);
+	DestroyList(T);
 }

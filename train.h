@@ -15,5 +15,14 @@ void Train_2_24();
 void Train_2_29();
 void Train_2_30();
 
+void Train_3_9();
+void Train_3_10();
+void Train_3_21();
+void Train_3_24();
+void Train_3_25();
+void Train_3_31();
+
 void Practice_3_2_2_CheckOfBrackets();
 void Practice_3_2_2_InfixExpressionEvaluation();
+
+void Practice_4_3_MatchPatternString();

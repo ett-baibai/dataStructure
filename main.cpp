@@ -260,14 +260,21 @@ void Ftrain()
 	//Train_2_21();
 	//Train_2_22();
 	//Train_2_23();
-	Train_2_24();
+	//Train_2_24();
+	//Train_3_9();
+	//Train_3_10();
+	//Train_3_21();
+	//Train_3_24();
+	//Train_3_25();
 	//Train_2_29();
 	//Train_2_30();
+	//Train_3_31();
+
 }
 
 int main()
 {
-	Ftrain();
+	//Ftrain();
 	//TestSequence();
 	//TestLinkList();
 	//TestDoubleLinkList();
@@ -279,5 +286,6 @@ int main()
 	//TestQueueLinkList();
 	//Practice_3_2_2_CheckOfBrackets();
 	//Practice_3_2_2_InfixExpressionEvaluation();
+	Practice_4_3_MatchPatternString();
 	return 0;
 }
