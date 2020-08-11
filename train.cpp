@@ -1382,6 +1382,7 @@ void Practice_3_2_2_InfixExpressionEvaluation()
 static int MatchPoorly_1(SqList S, SqList T)
 {
 	int i = 0, j = 0, k = 0;
+	int count = 0;
 	while (i < S.length && j < T.length)
 	{
 		if (S.elem[i] == T.elem[j])
@@ -1395,7 +1396,9 @@ static int MatchPoorly_1(SqList S, SqList T)
 			j = 0;
 			i = k;
 		}
+		count++;
 	}
+	printf("poor_1:%d\n",count);
 	if (j >= T.length)return k+1;
 	else return 0;
 }
@@ -1403,6 +1406,7 @@ static int MatchPoorly_1(SqList S, SqList T)
 static int MatchPoorly_2(SqList S, SqList T)
 {
 	int i = 0, j = 0;
+	int count = 0;
 	while (i < S.length && j < T.length)
 	{
 		if (S.elem[i] == T.elem[j])
@@ -1416,7 +1420,9 @@ static int MatchPoorly_2(SqList S, SqList T)
 			j = 0;
 			
 		}
+		count++;
 	}
+	printf("poor_2:%d\n", count);
 	if (j >= T.length)return i + 1 - T.length;
 	else return 0;
 }
@@ -1424,10 +1430,10 @@ static int MatchPoorly_2(SqList S, SqList T)
 static void GetNext(int *next, int len)
 {
 	next[0] = -1;
-	next[1] = 0;
-	next[2] = 0;
-	next[3] = 0;
-	next[len-1] = 0;
+	next[1] = -1;
+	next[2] = -1;
+	//next[3] = 0;
+	next[len-1] = 2;
 }
 
 static int Match_KMP(SqList S, SqList T)
@@ -1437,15 +1443,16 @@ static int Match_KMP(SqList S, SqList T)
 	GetNext(next, T.length);
 
 	int i = 0, j = 0;
+	int count = 0;
 	while (i < S.length && j < T.length)
 	{
-		if (j == -1)
+		/*if (j == -1)
 		{
 			i++;
 			j++;
-			continue;
-		}
-		if (S.elem[i] == T.elem[j])
+			//continue;
+		}*/
+		if (j == -1 || S.elem[i] == T.elem[j])
 		{
 			i++;
 			j++;
@@ -1454,16 +1461,18 @@ static int Match_KMP(SqList S, SqList T)
 		{
 			j = next[j];
 		}
+		count++;
 	}
 	free(next);
+	printf("KMP:%d\n", count);
 	if (j >= T.length)return i + 1 - T.length;
 	else return 0;
 }
 
 void Practice_4_3_MatchPatternString()
 {
-	const char cS[] = { 'd','a','t','u','c','t','u','r', 'a',' ','s','t','r', 'u','c','t','u','r','e' };
-	const char cT[] = { 'c','t','u','r','e' };
+	const char cS[] = { 'a','a','a','a','a','a', 'a', 'a','a','c' };
+	const char cT[] = { 'a','a','a','c'};
 	SqList S, T;
 	InitList_Sq(S);
 	InitList_Sq(T);
