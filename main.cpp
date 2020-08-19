@@ -11,6 +11,7 @@
 #include "stackLinkList.h"
 #include "ccQueueSequence.h"
 #include "queueLinkList.h"
+#include "binTreeLinkList.h"
 
 void  TestSequence()
 {
@@ -248,6 +249,22 @@ void TestQueueLinkList()
 	DestroyQueue_L(L);
 }
 
+void TestBinTreeLinkList()
+{
+	LBinTree Lb;
+	printf("###内部创建开始\n");
+	CreateBinTree_L(Lb);
+	printf("###内部创建成功\n");
+	printf("###后序遍历\n");
+	PosVisit(Lb);
+	printf("###先序遍历\n");
+	PreVisit(Lb);
+	printf("###中序遍历\n");
+	MidVisit(Lb);
+	
+	DestroyBinTree_L();
+}
+
 void Ftrain()
 {
 	//Train_2_10();
@@ -261,14 +278,17 @@ void Ftrain()
 	//Train_2_22();
 	//Train_2_23();
 	//Train_2_24();
+	//Train_2_29();
+	//Train_2_30();
+
 	//Train_3_9();
 	//Train_3_10();
 	//Train_3_21();
 	//Train_3_24();
 	//Train_3_25();
-	//Train_2_29();
-	//Train_2_30();
 	//Train_3_31();
+
+	Train_4_16();
 
 }
 
@@ -284,8 +304,11 @@ int main()
 	//TestStackLinkList();
 	//TsetCcQueueSq();
 	//TestQueueLinkList();
+
+	TestBinTreeLinkList();
+
 	//Practice_3_2_2_CheckOfBrackets();
 	//Practice_3_2_2_InfixExpressionEvaluation();
-	Practice_4_3_MatchPatternString();
+	//Practice_4_3_MatchPatternString();
 	return 0;
 }

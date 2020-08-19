@@ -8,4 +8,4 @@
 #define OVER_FLOW -2
 
 //typedef int ElemType;
-typedef char SElemType, QElemType, ElemType;
+typedef char SElemType, QElemType, ElemType, BElemType;

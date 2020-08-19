@@ -1029,6 +1029,30 @@ void Train_3_31()
 
 
 
+static int CompareStr(const char *A, const char *B)
+{
+	int i = 0;
+	while (i <= A[0] && i <= B[0])
+	{
+		if (A[i] != B[i])return (A[i] - B[i]);
+		i++;
+	}
+	return (A[0] - B[0]);
+}
+
+void Train_4_16()
+{
+	char A[] = { 4, 'a', 'b', 'c', 'f' };
+	char B[] = { 3, 'a', 'b', 'c' };
+
+	printf("compare:%d\n", CompareStr(A,B));
+}
+
+
+
+
+
+
 void Practice_3_2_2_CheckOfBrackets()
 {
 	SElemType e = 0, bracket[] = {'{', '}','[', ']'};
@@ -1333,7 +1357,7 @@ static int GetExpression(SElemType **ex)
 	printf("输入表达式：\n");
 	string exp;
 	cin >> exp;
-	int len = exp.length();
+	size_t len = (size_t)exp.length();
 	*ex = (SElemType*)malloc((len + 1) * sizeof(SElemType));
 	const char *cex = exp.c_str();
 	for (int i = 0; i < len-1; i++)
@@ -1347,7 +1371,7 @@ static int GetExpression(SElemType **ex)
 		else printf("%c\n", cex[i]);
 	}
 	//*ex[len] = '#';
-	return len;
+	return (int)len;
 }
 
 void Practice_3_2_2_InfixExpressionEvaluation()

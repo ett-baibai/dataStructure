@@ -24,7 +24,7 @@ bool StackEmpty_Sq(SqStack S)
 
 int GetStackLength_Sq(SqStack S)
 {
-	return(S.top - S.base);
+	return(int)(S.top - S.base);
 }
 
 bool GetPop_Sq(SqStack S, SElemType& e)

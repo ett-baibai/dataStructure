@@ -22,6 +22,8 @@ void Train_3_24();
 void Train_3_25();
 void Train_3_31();
 
+void Train_4_16();
+
 void Practice_3_2_2_CheckOfBrackets();
 void Practice_3_2_2_InfixExpressionEvaluation();
 
