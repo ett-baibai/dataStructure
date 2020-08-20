@@ -255,13 +255,34 @@ void TestBinTreeLinkList()
 	printf("###内部创建开始\n");
 	CreateBinTree_L(Lb);
 	printf("###内部创建成功\n");
-	printf("###后序遍历\n");
-	PosVisit(Lb);
-	printf("###先序遍历\n");
-	PreVisit(Lb);
-	printf("###中序遍历\n");
-	MidVisit(Lb);
+	//printf("###后序遍历\n");
+	//PosVisit_L(Lb);
+	//printf("###先序遍历\n");
+	//PreVisit_L(Lb);
 	
+	//printf("###中序遍历\n");
+	//MidVisit_L(Lb);
+
+	LBinNode* pre = NULL;
+	printf("###先序线索化\n");	
+	PreClue_L(Lb, pre);
+	printf("###先序遍历\n");
+	PreVisit_L(Lb);
+
+	ResetBinTree_L();//重置二叉树
+
+	printf("###中序线索化\n");
+	MidClue_L(Lb, pre);
+	printf("###中序遍历\n");
+	MidVisit_L(Lb);
+
+	ResetBinTree_L();//重置二叉树
+
+	printf("###后序线索化\n");
+	PosClue_L(Lb, pre);
+	printf("###后序遍历\n");
+	PosVisit_L(Lb);
+
 	DestroyBinTree_L();
 }
 
