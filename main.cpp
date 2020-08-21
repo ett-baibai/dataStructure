@@ -252,36 +252,35 @@ void TestQueueLinkList()
 void TestBinTreeLinkList()
 {
 	LBinTree Lb;
-	printf("###内部创建开始\n");
+	printf("###内部创建二叉树\n");
 	CreateBinTree_L(Lb);
-	printf("###内部创建成功\n");
-	//printf("###后序遍历\n");
-	//PosVisit_L(Lb);
-	//printf("###先序遍历\n");
-	//PreVisit_L(Lb);
 	
-	//printf("###中序遍历\n");
-	//MidVisit_L(Lb);
-
 	LBinNode* pre = NULL;
-	printf("###先序线索化\n");	
+	printf("###先序线索化...\n");	
 	PreClue_L(Lb, pre);
 	printf("###先序遍历\n");
 	PreVisit_L(Lb);
+	printf("###寻找先序线索化后每个结点的前驱与后继\n");
+	FindPreCluePreNextNode();
 
-	ResetBinTree_L();//重置二叉树
+	ResetBinTree_L();
 
-	printf("###中序线索化\n");
+	printf("###中序线索化...\n");
 	MidClue_L(Lb, pre);
 	printf("###中序遍历\n");
 	MidVisit_L(Lb);
+	printf("###寻找中序线索化后每个结点的前驱与后继\n");
+	FindMidCluePreNextNode();
+	
 
-	ResetBinTree_L();//重置二叉树
+	ResetBinTree_L();
 
-	printf("###后序线索化\n");
+	printf("###后序线索化...\n");
 	PosClue_L(Lb, pre);
 	printf("###后序遍历\n");
 	PosVisit_L(Lb);
+	printf("###寻找后序线索化后每个结点的前驱与后继\n");
+	FindPosCluePreNextNode();
 
 	DestroyBinTree_L();
 }

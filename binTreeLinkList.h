@@ -25,13 +25,13 @@ void PreVisit_L(LBinNode* node);
 void MidVisit_L(LBinNode* node);
 void PosVisit_L(LBinNode* node);
 
-void CableNode_L(LBinNode* node, LBinNode*& pre);
-void HandlePreClue_L(LBinNode* node, LBinNode* &pre);
-void PreClue_L(LBinNode* node, LBinNode* pre);
-void HandleMidClue_L(LBinNode* node, LBinNode*& pre);
+void PreClue_L(LBinNode* node, LBinNode* pre);//ÏÈÐòÏßË÷»¯
 void MidClue_L(LBinNode* node, LBinNode* pre);
-void HandlePosClue_L(LBinNode* node, LBinNode*& pre);
 void PosClue_L(LBinNode* node, LBinNode* pre);
+
+void FindPreCluePreNextNode();
+void FindMidCluePreNextNode();
+void FindPosCluePreNextNode();
 
 void PrintLNode(LBinNode* node);
 void PirntBinTree_L(LBinTree Lb, const std::string& title);

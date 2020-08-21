@@ -155,7 +155,9 @@ void PosVisit_L(LBinNode* node)
 	}
 }
 
-void CableNode_L(LBinNode* node, LBinNode*& pre)
+
+
+static void CableNode_L(LBinNode* node, LBinNode*& pre)
 {
 	if (node->lflag == init)
 	{
@@ -172,7 +174,7 @@ void CableNode_L(LBinNode* node, LBinNode*& pre)
 	pre = node;	
 }
 
-void HandlePreClue_L(LBinNode* node, LBinNode* &pre)
+static void HandlePreClue_L(LBinNode* node, LBinNode* &pre)
 {
 	if (node)
 	{
@@ -191,7 +193,7 @@ void PreClue_L(LBinNode* node, LBinNode* pre)
 	pre->rflag = clue;
 }
 
-void HandleMidClue_L(LBinNode* node, LBinNode*& pre)
+static void HandleMidClue_L(LBinNode* node, LBinNode*& pre)
 {
 	if (node)
 	{
@@ -210,7 +212,7 @@ void MidClue_L(LBinNode* node, LBinNode* pre)
 	pre->rflag = clue;
 }
 
-void HandlePosClue_L(LBinNode* node, LBinNode*& pre)
+static void HandlePosClue_L(LBinNode* node, LBinNode*& pre)
 {
 	if (node)
 	{
@@ -223,6 +225,130 @@ void HandlePosClue_L(LBinNode* node, LBinNode*& pre)
 void PosClue_L(LBinNode* node, LBinNode* pre)
 {
 	HandlePosClue_L(node, pre);
+}
+
+
+
+static LBinNode* GetNodePreCluePreNode(LBinNode* node)
+{
+	return NULL;
+}
+
+//先序线索化后寻找前驱结点
+static LBinNode* FindPreCluePreNode(LBinNode* node)
+{
+	if (node->lflag == clue)return node->left;
+	else return NULL;
+}
+
+//先序线索化后寻找后继结点
+static LBinNode* FindPreClueNextNode(LBinNode* node)
+{
+	if (node->lflag == child)return node->left;
+	else return node->right;
+}
+
+void FindPreCluePreNextNode()
+{
+	//printf("提示: 如果没有调用\"PreClue_L()\"函数进行过先序线索化，结果是错误的\n");
+	LBinNode* pre = NULL, * next = NULL;
+	printf("结点  前驱  后继\n");
+	for (int i = 0; i < gNodeNum; i++)
+	{
+		pre = FindPreCluePreNode(gNodeIndex[i]);
+		next = FindPreClueNextNode(gNodeIndex[i]);
+		if (pre && next)printf(" %2c   %2c   %4c\n", gNodeIndex[i]->data, pre->data, next->data);
+		else if (pre && !next)printf(" %2c   %2c     NULL\n", gNodeIndex[i]->data, pre->data);
+		else if (!pre && next)printf(" %2c   NULL   %2c\n", gNodeIndex[i]->data, next->data);
+		else printf(" %2c   NULL   NULL\n", gNodeIndex[i]->data);
+	}
+}
+
+static LBinNode* GetNodeMidCluePreNode(LBinNode* node)
+{
+	while (node->rflag == child) node = node->right;
+	return node;
+}
+
+//中序线索化后寻找前驱结点
+static LBinNode* FindMidCluePreNode(LBinNode* node)
+{
+	if (node->lflag == clue)return node->left;
+	else if(node->lflag == child) return GetNodeMidCluePreNode(node->left);
+	else 
+	{
+		printf("寻找中序前驱结点时，有结点处于init状态\n");
+		exit(ERROR);
+	}
+}
+
+static LBinNode* GetNodeMidClueNextNode(LBinNode* node)
+{
+	while (node->lflag == child) node = node->left;
+	return node;
+}
+
+//中序线索化后寻找后继结点
+static LBinNode* FindMidClueNextNode(LBinNode* node)
+{
+	if (node->rflag == clue)return node->right;
+	else if (node->rflag == child)return GetNodeMidClueNextNode(node->right);
+	else
+	{
+		printf("寻找中序后继结点时，有结点处于init状态\n");
+		exit(ERROR);
+	}
+}
+
+void FindMidCluePreNextNode()
+{
+	//printf("提示: 如果没有调用\"MidClue_L()\"函数进行过中序线索化，结果是错误的\n");
+	LBinNode* pre = NULL, *next = NULL;
+	printf("结点  前驱  后继\n");
+	for (int i = 0; i < gNodeNum; i++)
+	{
+		pre = FindMidCluePreNode(gNodeIndex[i]);
+		next = FindMidClueNextNode(gNodeIndex[i]);
+		if(pre && next)printf(" %2c   %2c   %4c\n", gNodeIndex[i]->data, pre->data, next->data);
+		else if (pre && !next)printf(" %2c   %2c     NULL\n", gNodeIndex[i]->data, pre->data);
+		else if (!pre && next)printf(" %2c   NULL   %2c\n", gNodeIndex[i]->data, next->data);
+		else printf(" %2c   NULL   NULL\n", gNodeIndex[i]->data);
+	}
+}
+
+//后序线索化后寻找前驱结点
+static LBinNode* FindPosCluePreNode(LBinNode* node)
+{
+	if (node->rflag == child) return node->right;	//有右孩子
+	else return node->left; //沒有右孩子，只有左孩子；或者左右孩子都沒有
+}
+
+static LBinNode* GetNodePosClueNextNode(LBinNode* node)
+{
+	return NULL;
+}
+
+//后序线索化后寻找后继结点
+static LBinNode* FindPosClueNextNode(LBinNode* node)
+{
+	if (node->rflag == clue)return node->right;
+	else return NULL;
+}
+
+void FindPosCluePreNextNode()
+{
+	//printf("提示: 如果没有调用\"PosClue_L()\"函数进行过后序线索化，结果是错误的\n");
+	LBinNode* pre = NULL, * next = NULL;
+	printf("结点  前驱  后继\n");
+	for (int i = 0; i < gNodeNum; i++)
+	{
+		pre = FindPosCluePreNode(gNodeIndex[i]);
+		next = FindPosClueNextNode(gNodeIndex[i]);
+		if (pre && next)printf(" %2c   %2c   %4c\n", gNodeIndex[i]->data, pre->data, next->data);
+		else if (pre && !next)printf(" %2c   %2c     NULL\n", gNodeIndex[i]->data, pre->data);
+		else if (!pre && next)printf(" %2c   NULL   %2c\n", gNodeIndex[i]->data, next->data);
+		else printf(" %2c   NULL   NULL\n", gNodeIndex[i]->data);
+	}
 }
 
 void PrintLNode(LBinNode* node)
