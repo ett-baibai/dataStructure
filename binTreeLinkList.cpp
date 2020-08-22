@@ -228,17 +228,50 @@ void PosClue_L(LBinNode* node, LBinNode* pre)
 }
 
 
+static LBinNode* GetParentNode(LBinNode* node)
+{
+	switch (node->data)
+	{
+	case 'A':return NULL;
+	case 'B':
+	case 'C':return gNodeIndex[0];
+	case 'D': 
+	case 'E':return gNodeIndex[1];
+	case 'F':
+	case 'G':return gNodeIndex[2];
+	case 'H':return gNodeIndex[3];
+	case 'I':return gNodeIndex[6];
+	default:return NULL;
+	}
+}
 
 static LBinNode* GetNodePreCluePreNode(LBinNode* node)
 {
-	return NULL;
+	LBinNode* parentNode = GetParentNode(node);
+	if (parentNode)
+	{
+		if (parentNode->lflag == child && //需要寻找前驱的结点为其父结点的右孩子且左孩子存在
+			parentNode->rflag == child && 
+			parentNode->right == node)
+		{
+			LBinNode *p = parentNode->left;
+			while (p->lflag == child || p->rflag == child)
+			{
+				if (p->rflag == child) p = p->right;
+				else p = p->left;
+			}
+			return p;
+		}
+	}
+
+	return parentNode;
 }
 
 //先序线索化后寻找前驱结点
 static LBinNode* FindPreCluePreNode(LBinNode* node)
 {
 	if (node->lflag == clue)return node->left;
-	else return NULL;
+	else return GetNodePreCluePreNode(node);
 }
 
 //先序线索化后寻找后继结点
@@ -325,14 +358,31 @@ static LBinNode* FindPosCluePreNode(LBinNode* node)
 
 static LBinNode* GetNodePosClueNextNode(LBinNode* node)
 {
-	return NULL;
+	LBinNode* parentNode = GetParentNode(node);
+	if (parentNode)
+	{
+		if (parentNode->lflag == child && //需要寻找后继的结点为其父结点的右孩子且左孩子存在
+			parentNode->rflag == child &&
+			parentNode->left == node)
+		{
+			LBinNode* p = parentNode->right;
+			while (p->lflag == child || p->rflag == child)
+			{
+				if (p->lflag == child) p = p->left;
+				else p = p->right;
+			}
+			return p;
+		}
+	}
+
+	return parentNode;
 }
 
 //后序线索化后寻找后继结点
 static LBinNode* FindPosClueNextNode(LBinNode* node)
 {
 	if (node->rflag == clue)return node->right;
-	else return NULL;
+	else return GetNodePosClueNextNode(node);
 }
 
 void FindPosCluePreNextNode()
